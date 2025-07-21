@@ -2,6 +2,7 @@ import { IsString, IsInt, IsOptional, IsBoolean } from 'class-validator';
 
 export class CreateTodoDto {
   @IsInt()
+  @IsOptional()
   id: number;
 
   @IsString()

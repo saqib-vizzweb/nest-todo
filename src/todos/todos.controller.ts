@@ -20,7 +20,7 @@ import { LoggingInterceptor } from '../common/logger/logger.interceptor';
 // import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
 @Controller('todos')
-@UseGuards(TodosGuard)
+// @UseGuards(TodosGuard)
 @UseInterceptors(LoggingInterceptor)
 // @UseFilters(new HttpExceptionFilter())
 export class TodosController {
@@ -33,8 +33,7 @@ export class TodosController {
 
   @Get()
   findAll() {
-    const todos = this.todosService.findAll();
-    return { todos };
+    return this.todosService.findAll();
   }
 
   @Get(':id')
