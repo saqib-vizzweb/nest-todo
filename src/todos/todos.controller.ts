@@ -7,11 +7,14 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseFilters,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
+@UseFilters(new HttpExceptionFilter())
 @Controller('todos')
 export class TodosController {
   constructor(private readonly todosService: TodosService) {}
