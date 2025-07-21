@@ -8,21 +8,21 @@ import {
   Delete,
   ParseIntPipe,
   HttpStatus,
-  UsePipes,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { ValidationPipe } from './validation.pipe';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { TodosGuard } from './todos.guard';
-// import { UpdateTodoDto } from './dto/update-todo.dto';
+import { LoggingInterceptor } from '../common/logger/logger.interceptor';
 // import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
-// @UseFilters(new HttpExceptionFilter())
-
-@UseGuards(TodosGuard)
 @Controller('todos')
+@UseGuards(TodosGuard)
+@UseInterceptors(LoggingInterceptor)
+// @UseFilters(new HttpExceptionFilter())
 export class TodosController {
   constructor(private readonly todosService: TodosService) {}
 
