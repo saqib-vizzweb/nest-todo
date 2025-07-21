@@ -11,9 +11,9 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
-import { createTodoSchema, CreateTodoDto } from './dto/create-todo.dto';
+import { CreateTodoDto } from './dto/create-todo.dto';
+import { ValidationPipe } from './validation.pipe';
 // import { UpdateTodoDto } from './dto/update-todo.dto';
-import { ZodValidationPipe } from './validation.pipe';
 // import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
 // @UseFilters(new HttpExceptionFilter())
@@ -22,9 +22,8 @@ import { ZodValidationPipe } from './validation.pipe';
 export class TodosController {
   constructor(private readonly todosService: TodosService) {}
 
-  @UsePipes(new ZodValidationPipe(createTodoSchema))
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto) {
+  create(@Body(new ValidationPipe()) createTodoDto: CreateTodoDto) {
     return this.todosService.create(createTodoDto);
   }
 

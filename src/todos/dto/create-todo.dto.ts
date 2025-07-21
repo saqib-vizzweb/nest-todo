@@ -1,19 +1,16 @@
-// export class CreateTodoDto {
-//   id: number;
-//   title: string;
-//   description: string;
-//   completed: boolean;
-// }
+import { IsString, IsInt, IsOptional, IsBoolean } from 'class-validator';
 
-import { z } from 'zod';
+export class CreateTodoDto {
+  @IsInt()
+  id: number;
 
-export const createTodoSchema = z
-  .object({
-    id: z.number().optional(),
-    title: z.string(),
-    description: z.string(),
-    completed: z.boolean().optional(),
-  })
-  .required();
+  @IsString()
+  title: string;
 
-export type CreateTodoDto = z.infer<typeof createTodoSchema>;
+  @IsString()
+  description: string;
+
+  @IsBoolean()
+  @IsOptional()
+  completed: boolean;
+}
