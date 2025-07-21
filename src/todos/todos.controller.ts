@@ -13,6 +13,7 @@ import {
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { ValidationPipe } from './validation.pipe';
+import { UpdateTodoDto } from './dto/update-todo.dto';
 // import { UpdateTodoDto } from './dto/update-todo.dto';
 // import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
@@ -44,13 +45,13 @@ export class TodosController {
     return this.todosService.findOne(id);
   }
 
-  // @Patch(':id')
-  // update(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() updateTodoDto: UpdateTodoDto,
-  // ) {
-  //   return this.todosService.update(id, updateTodoDto);
-  // }
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(new ValidationPipe()) updateTodoDto: UpdateTodoDto,
+  ) {
+    return this.todosService.update(id, updateTodoDto);
+  }
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
