@@ -7,10 +7,14 @@ import { UserService } from '../user/user.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService,
+  ) {}
 
   async signIn(signInDto: SignInDto): Promise<any> {
     const user = await this.userService.findByEmail(signInDto.email);
@@ -26,9 +30,10 @@ export class AuthService {
     if (!isMatch) {
       throw new UnauthorizedException("Password doesn't match");
     }
-    const { password, ...result } = user;
-
-    return result;
+    const payload = { sub: user.id, email: user.email };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 
   async signUp(signUpDto: SignUpDto) {

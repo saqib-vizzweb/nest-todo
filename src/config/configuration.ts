@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 export default () => ({
   port: parseInt(process.env.PORT as string, 10) || 3000,
+  jwtSecret: process.env.JWT_SECRET,
   database: {
     host: process.env.DATABASE_HOST,
     port: parseInt(process.env.DB_PORT as string, 10) || 3306,

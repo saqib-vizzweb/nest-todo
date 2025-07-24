@@ -40,7 +40,7 @@ export class UserService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    return `This action returns a #${id} user`;
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
