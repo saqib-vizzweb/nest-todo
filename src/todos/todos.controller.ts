@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
-import { ValidationPipe } from './validation.pipe';
+import { ValidationPipe } from 'src/common/validation/validation.pipe';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { TodosGuard } from './todos.guard';
 import { LoggingInterceptor } from '../common/logger/logger.interceptor';
