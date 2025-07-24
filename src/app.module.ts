@@ -6,32 +6,23 @@ import {
 } from '@nestjs/common';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { TodosModule } from './todos/todos.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Todo } from './todos/entities/todo.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from './database/database.module';
 import configuration from './config/configuration';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'nest_todo',
-      entities: [Todo],
-      synchronize: true,
-    }),
-    TodosModule,
-    AuthModule,
-    UserModule,
     ConfigModule.forRoot({
       envFilePath: '../.env',
       load: [configuration],
+      isGlobal: true,
     }),
+    DatabaseModule,
+    TodosModule,
+    AuthModule,
+    UserModule,
   ],
 })
 export class AppModule implements NestModule, OnApplicationShutdown {
