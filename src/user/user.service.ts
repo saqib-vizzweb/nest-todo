@@ -50,4 +50,9 @@ export class UserService {
   remove(id: number) {
     return this.users.delete(id);
   }
+
+  async findByEmail(email: string) {
+    const user = await this.users.findOne({ where: { email } });
+    return user;
+  }
 }
