@@ -16,11 +16,11 @@ import { CreateTodoDto } from './dto/create-todo.dto';
 import { ValidationPipe } from 'src/common/validation/validation.pipe';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { LoggingInterceptor } from '../common/logger/logger.interceptor';
-// import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from 'src/auth/auth.guard';
 // import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 
 @Controller('todos')
-// @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 @UseInterceptors(LoggingInterceptor)
 // @UseFilters(new HttpExceptionFilter())
 export class TodosController {
