@@ -12,12 +12,17 @@ import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ValidationPipe } from 'src/common/validation/validation.pipe';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { Roles } from 'src/auth/roles/roles.decorator';
+import { Role } from 'src/auth/roles/role.enum';
+import { RolesGuard } from 'src/auth/role.guard';
 
 @UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Roles(Role.Admin)
+  @UseGuards(RolesGuard)
   @Get()
   findAll() {
     return this.userService.findAll();
